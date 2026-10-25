@@ -1,0 +1,45 @@
+{% extends "pages/legal.html" %}
+{# DRAFT: plain-language terms for a quote-and-confirm sales process. Have a Nigerian lawyer review before launch.
+   Several clauses are business decisions (quote validity, claims window, liability cap): confirm each. #}
+{% block legal_title %}Terms of sale and use{% endblock %}
+{% block legal_heading %}Terms of sale and use{% endblock %}
+
+{% block legal_body %}
+<h2>About these terms</h2>
+<p>These terms apply when you use agronga.com or buy from AgroNGA Limited ("we", "us"), a company based in Lagos, Nigeria. By placing an order you agree to them. Nothing here limits rights you have under the law that cannot be limited.</p>
+
+<h2>Our products</h2>
+<p>Our products are natural agricultural goods, so colour, size and appearance vary between harvests. Photos are illustrations. We describe products as accurately as we can, and if you need a specification, ask before you order.</p>
+
+<h2>Prices and currency</h2>
+<ul>
+  <li>Prices are shown in Nigerian naira (₦) or US dollars ($), as you choose with the currency switch.</li>
+  <li>The price in the currency shown when you order is the price you pay. We do not convert between currencies after you order.</li>
+  <li>Where a product shows "Price on request" or "From", the final price is set in a written quote.</li>
+  <li>Prices can change. A change does not affect an order we have already confirmed.</li>
+</ul>
+
+<h2>Quotes and orders</h2>
+<p>A quote request is not an order. We reply by email with price, availability and delivery details. An order exists only when we confirm it in writing and you accept that confirmation. A quote is valid for the period stated in it.</p>
+
+<h2>Payment</h2>
+<p>Pay using the details in our written confirmation, in the currency it states. <strong>We will never ask you to pay into a personal account, and we will never ask for your card number by email, phone or chat.</strong> If you are unsure whether a message is from us, call <a href="tel:{{ company.phone_href }}">{{ company.phone }}</a> before you pay.</p>
+
+<h2>Delivery</h2>
+<p>Delivery dates are estimates. Delivery cost and method are stated in your confirmation. For international orders, you are responsible for import duties, taxes and customs clearance in your country unless the confirmation says otherwise, and we will provide the export documents we hold for your goods.</p>
+
+<h2>Problems with your order</h2>
+<p>Check your goods when they arrive. If something is damaged, wrong or not as described, tell us as soon as you can and send photos. We will work with you to put it right, which may mean a replacement, a correction or a refund.</p>
+
+<h2>Our liability</h2>
+<p>We are responsible for the goods we sell and for what we promise in your confirmation. Beyond that, and as far as the law allows, we are not liable for indirect or consequential losses such as lost profit, and our total liability for any order is limited to the amount you paid for it. Nothing in these terms limits liability that cannot lawfully be limited.</p>
+
+<h2>Using this website</h2>
+<p>Please do not misuse the site: no automated scraping, no attempts to break or overload it, no submitting false or abusive messages. We may block access that does.</p>
+
+<h2>Governing law</h2>
+<p>These terms are governed by the laws of the Federal Republic of Nigeria. Disputes go to the courts of Lagos State, unless the law gives you the right to go elsewhere.</p>
+
+<h2>Changes and contact</h2>
+<p>We may update these terms and will change the date at the top. An order is governed by the terms in force when we confirmed it. Questions? Use our <a href="{% url 'core:contact' %}">contact page</a>.</p>
+{% endblock %}

@@ -1,0 +1,13 @@
+# Secrets and local data: never commit these
+.env
+.env.*
+!.env.example
+db.sqlite3
+media/
+
+# Generated
+staticfiles/
+__pycache__/
+*.pyc
+node_modules/
+theme/static/css/dist/

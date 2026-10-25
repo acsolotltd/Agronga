@@ -1,0 +1,8 @@
+{% load money %}
+   <button type="button" class="btn add {{ cls }}" data-add
+        data-slug="{{ p.slug }}" data-name="{{ p.name }}" data-unit="{{ p.unit }}"
+        data-url="{{ p.get_absolute_url }}" data-img="{{ p.image_url }}"
+        data-ngn="{{ p.price_ngn|default_if_none:'' }}" data-usd="{{ p.price_usd|default_if_none:'' }}"{% if qty_input %} data-qty-input="{{ qty_input }}"{% endif %}>
+  <svg class="i" aria-hidden="true"><use href="#i-cart"/></svg><span>Add to cart</span>
+  <span class="add-done" aria-hidden="true"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>Added</span>
+</button>

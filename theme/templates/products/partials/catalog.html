@@ -1,0 +1,18 @@
+{# Catalogue region: filter chips + grid. All products are rendered; chips filter in the browser.
+   With ?category=slug the other cards start hidden, so deep links from the footer work without JS. #}
+<div id="catalog" data-filter-group>
+  <div class="shop-bar">
+    <div class="chips" role="group" aria-label="Filter products">
+      <button type="button" class="chip" data-filter="all" aria-pressed="{% if not active_category %}true{% else %}false{% endif %}">All</button>
+      {% for c in categories %}<button type="button" class="chip" data-filter="{{ c.slug }}" aria-pressed="{% if active_category == c %}true{% else %}false{% endif %}">{{ c.name }}</button>{% endfor %}
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span class="count" data-filter-count role="status">{{ shown }} product{{ shown|pluralize }}</span>
+      {% include "components/currency_switch.html" with size="seg-lg" %}
+      <span class="fine" style="flex-basis:100%;text-align:right">Prices are set in US dollars. Naira prices follow the live exchange rate.</span>
+    </div>
+  </div>
+  <div class="grid-products" style="margin-top:24px">
+    {% for p in products %}{% include "components/product_card.html" with p=p %}{% endfor %}
+  </div>
+</div>

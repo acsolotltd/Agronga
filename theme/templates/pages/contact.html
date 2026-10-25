@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | AgroNGA{% endblock %}
+{% block meta_description %}{{ page.intro }} {{ company.address }}.{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with page=page %}
+<div class="wrap contact-grid">
+  <div>
+    {% if page.paragraphs %}<div class="prose reveal" style="margin-bottom:28px">{% for para in page.paragraphs %}<p>{{ para }}</p>{% endfor %}</div>{% endif %}
+    <div class="info-list">
+      <div class="row reveal"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span><p><b>Phone</b>{% for p in company.phones %}<a href="tel:{{ p.href }}">{{ p.display }}</a>{% if not forloop.last %}<br>{% endif %}{% endfor %}</p></div>
+      <div class="row reveal"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg></span><p><b>Email</b><a href="#contact-form-wrap" data-email data-user="{{ company.email_user }}" data-domain="{{ company.email_domain }}">Use the form</a></p></div>
+      <div class="row reveal"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg></span><p><b>Address</b>{% if company.map_url %}<a href="{{ company.map_url }}" target="_blank" rel="noopener noreferrer">{{ company.address }}<span class="sr-only"> (opens map in a new tab)</span></a>{% else %}<span>{{ company.address }}</span>{% endif %}</p></div>
+      <div class="row reveal"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></span><p><b>Open</b><span>{{ company.hours }}</span></p></div>
+    </div>
+    <div style="margin-top:28px" class="reveal"><b style="display:block;margin-bottom:10px">Follow AgroNGA</b>{% include "components/socials.html" %}</div>
+    {% include "components/page_blocks.html" with blocks=page.blocks %}
+  </div>
+  <div class="formcard reveal" style="border:1px solid var(--line);box-shadow:var(--shadow)">
+    {% include "pages/partials/contact_form.html" %}
+  </div>
+</div>
+{% endblock %}

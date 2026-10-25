@@ -1,0 +1,7 @@
+{# Editable text sections (Admin > Page content > Sections). {% include "components/page_blocks.html" with blocks=page.blocks %} #}
+{% for b in blocks %}
+<section class="{% if b.callout %}safe{% else %}prose{% endif %} reveal"{% if b.heading %} aria-label="{{ b.heading }}"{% endif %}>
+  {% if b.heading %}<h2 class="block-title">{{ b.heading }}</h2>{% endif %}
+  {% for kind, content in b.items %}{% if kind == "ul" %}<ul>{% for line in content %}<li>{{ line }}</li>{% endfor %}</ul>{% else %}<p>{{ content }}</p>{% endif %}{% endfor %}
+</section>
+{% endfor %}

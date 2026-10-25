@@ -1,0 +1,6 @@
+{# {% include "components/field.html" with field=form.name label="Your name" %} #}
+<div class="field{% if field.errors %} has-error{% endif %}">
+  <label for="{{ field.id_for_label }}">{{ label }}{% if not field.field.required %} <span class="fine">(optional)</span>{% endif %}</label>
+  {{ field }}
+  {% for error in field.errors %}<p role="alert" class="field-error">{{ error }}</p>{% endfor %}
+</div>

@@ -1,0 +1,35 @@
+{% load static %}
+<div class="topbar">
+  <div class="wrap">
+    <div class="topbar-info">
+      <a href="tel:{{ company.phone_href }}"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>{{ company.phone }}</a>
+      <span class="hide-sm"><svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>{{ company.short_location }}</span>
+      <a class="hide-sm" href="{% url 'core:contact' %}"><svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>Message us</a>
+    </div>
+    {% include "components/socials.html" %}
+  </div>
+</div>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="{% url 'core:home' %}" class="brand" aria-label="AgroNGA home">
+      <img src="{% static 'img/brand/logo.png' %}" alt="" width="50">
+      <!--svg class="brand-mark" aria-hidden="true"><use href="#i-logo"/></svg-->
+      <span><span class="brand-name">Agro<b>NGA</b></span><span class="brand-sub">Raw &amp; processed, from Nigeria</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      {% for l in nav_links %}<a href="{{ l.href }}"{% if l.active %} aria-current="page"{% endif %}>{{ l.label }}</a>{% endfor %}
+    </nav>
+    <div class="header-tools">
+      {% include "components/currency_switch.html" %}
+      <button type="button" class="icon-btn theme-btn" data-theme-toggle aria-label="Switch light or dark mode">
+        <svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+      </button>
+      <a href="{% url 'core:cart' %}" class="icon-btn" data-cart-open aria-label="Open cart">
+        <svg class="i" aria-hidden="true"><use href="#i-cart"/></svg>
+        <span class="cart-count" data-cart-count>0</span>
+      </a>
+      <a href="{% url 'core:contact' %}?topic=quote" class="btn btn-sm header-cta">Request a quote</a>
+      <button type="button" class="icon-btn burger" data-menu-open aria-label="Open menu" aria-expanded="false"><svg class="i" aria-hidden="true"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>

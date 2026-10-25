@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | AgroNGA{% endblock %}
+{% block meta_description %}{{ page.intro }}{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with page=page only %}
+{{ page }}
+<div class="wrap">
+  <section class="split">
+    <div class="prose reveal" style="font-size:1.15rem;color:var(--muted)">
+      {% for para in page.paragraphs %}<p>{{ para }}</p>{% endfor %}
+    </div>
+    {% if page.side %}
+    <img class="reveal" src="{{ page.side.src }}"{% if page.side.srcset %} srcset="{{ page.side.srcset }}" sizes="(min-width: 900px) 50vw, 100vw"{% endif %}{% if page.side.width %} width="{{ page.side.width }}" height="{{ page.side.height }}"{% endif %}
+         alt="{{ page.side.alt }}" loading="lazy" decoding="async" style="object-position: {{ page.side.position }}">
+    {% endif %}
+  </section>
+  {% if page.blocks %}<div class="page-blocks">{% include "components/page_blocks.html" with blocks=page.blocks %}</div>{% endif %}
+</div>
+
+{% include "components/sections/pillars.html" %}
+
+<div class="wrap">
+  <section style="padding-bottom:clamp(48px,6vw,88px)" aria-labelledby="facts-title">
+    <div class="section-head reveal"><h2 id="facts-title" style="font-size:clamp(1.8rem,3.4vw,2.6rem)">Company details</h2></div>
+    <dl class="specs reveal" style="max-width:760px">
+      <div><dt>Registered name</dt><dd>{{ company.name }}</dd></div>
+      {% if company.rc_number %}<div><dt>CAC registration</dt><dd>{{ company.rc_number }}</dd></div>{% endif %}
+      {% if company.founded_year %}<div><dt>Founded</dt><dd>{{ company.founded_year }}</dd></div>{% endif %}
+      <div><dt>Address</dt><dd>{{ company.address }}</dd></div>
+      <div><dt>Open</dt><dd>{{ company.hours }}</dd></div>
+      <div><dt>Phone</dt><dd>{% for p in company.phones %}<a href="tel:{{ p.href }}">{{ p.display }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</dd></div>
+    </dl>
+  </section>
+
+  {% if categories %}
+  <section style="padding-bottom:clamp(48px,6vw,88px)" aria-labelledby="range-title">
+    <div class="section-head"><h2 id="range-title" style="font-size:clamp(1.8rem,3.4vw,2.6rem)">What we supply</h2></div>
+    <div class="quotes">
+      {% for c in categories %}
+      <div class="quote reveal"><h3><a href="{% url 'core:products' %}?category={{ c.slug }}">{{ c.name }}</a></h3><p style="color:var(--muted)">{% for n in c.product_names %}{{ n }}{% if not forloop.last %}, {% endif %}{% endfor %}</p></div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if company.certification_list %}
+  <section style="padding-bottom:clamp(48px,6vw,88px)" aria-labelledby="certs-title">
+    <div class="section-head"><h2 id="certs-title" style="font-size:clamp(1.8rem,3.4vw,2.6rem)">Registrations and certifications</h2></div>
+    <ul class="ticks">{% for line in company.certification_list %}<li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>{{ line }}</li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+</div>
+
+<section class="cta section-tight">
+  <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+    <div><h2 style="font-size:clamp(1.8rem,3.4vw,2.6rem)">Ready to order, or just have questions?</h2><p style="margin-top:10px;opacity:.9">Tell us what you need and we reply by email with price and availability.</p></div>
+    <a href="{% url 'core:contact' %}" class="btn btn-gold">Contact us</a>
+  </div>
+</section>
+{% endblock %}

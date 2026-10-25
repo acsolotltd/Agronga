@@ -1,0 +1,22 @@
+{% load money %}
+{# Section: bulk commodity price board. Context: bulk_products. #}
+<section class="section section-dark" id="bulk" aria-labelledby="bulk-title">
+  <div class="wrap bulk-split">
+    <div class="bulk-copy sticky reveal">
+      <h2 id="bulk-title">Buying by the tonne?</h2>
+      <p>Sesame seeds, peanuts and shea nuts are priced per tonne in naira and dollars. Add them to your cart, or ask for a quote if your volume is larger.</p>
+      <a class="btn btn-gold" href="{% url 'core:contact' %}?topic=quote">Request a bulk quote <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <p class="note">Freight and final price vary by destination. We confirm price, stock and delivery by email before any payment.</p>
+    </div>
+    <div class="board reveal">
+      {% for p in bulk_products %}
+      <div class="board-row">
+        <a class="board-thumb" href="{{ p.get_absolute_url }}" tabindex="-1" aria-hidden="true"><img src="{{ p.image_url }}" alt="" loading="lazy" width="96" height="96"></a>
+        <div><a class="board-name" href="{{ p.get_absolute_url }}">{{ p.name }}</a><span class="board-unit">{{ p.unit }}</span></div>
+        <div class="board-price">{% price p %}</div>
+        <div class="board-act">{% include "components/add_button.html" with p=p cls="btn-gold btn-sm" %}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

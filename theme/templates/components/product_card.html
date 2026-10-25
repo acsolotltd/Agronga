@@ -1,0 +1,15 @@
+{% load money %}
+<article class="pcard{% if p.hidden %} is-hidden{% endif %}" style="--accent: {{ p.accent }}" data-cat="{{ p.category.slug }}">
+  <a class="pcard-media" href="{{ p.get_absolute_url }}" tabindex="-1" aria-hidden="true">
+    {% if p.image_url %}<img src="{{ p.image_url }}" alt="" loading="lazy" width="600" height="480">{% endif %}
+  </a>
+  {% if p.badge %}<span class="badge">{{ p.badge }}</span>{% endif %}
+  <div class="pcard-body">
+    <h3><a href="{{ p.get_absolute_url }}">{{ p.name }}</a></h3>
+    <p class="pcard-blurb">{{ p.blurb }}</p>
+    <div class="pcard-foot">
+      <div>{% price p %}<span class="unit">{{ p.unit }}</span></div>
+      {% include "components/add_button.html" with p=p cls="btn-sm" %}
+    </div>
+  </div>
+</article>

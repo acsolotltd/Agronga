@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load money %}
+{% block title %}{{ product.name }} | AgroNGA{% endblock %}
+{% block og_title %}{{ product.name }} | AgroNGA{% endblock %}
+{% block meta_description %}{{ product.blurb }} Shop {{ product.name }} from AgroNGA in naira or US dollars.{% endblock %}
+{% block structured_data %}{% if jsonld %}<script type="application/ld+json">{{ jsonld|safe }}</script>{% endif %}{% endblock %}
+
+{% block content %}
+<div class="wrap">
+  <nav aria-label="Breadcrumb" style="padding-top:24px">
+    <ol class="crumbs crumbs-ink" style="margin:0">
+      <li><a href="{% url 'core:home' %}">Home</a></li>
+      <li><a href="{% url 'core:products' %}">Shop</a></li>
+      <li><a href="{% url 'core:products' %}?category={{ product.category.slug }}">{{ product.category.name }}</a></li>
+      <li aria-current="page">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <article class="pdp" style="--accent: {{ product.accent }}">
+    <div class="gallery">
+      <div class="gallery-main" data-gallery-main>
+        {% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.alt }}" width="1400" height="1190" fetchpriority="high">{% endif %}
+        <span class="zoom-hint"><svg class="i" aria-hidden="true"><use href="#i-zoom"/></svg>Click to enlarge</span>
+      </div>
+      {% if product.image_urls|length > 1 %}
+      <div class="thumbs" role="group" aria-label="Product photos">
+        {% for u in product.image_urls %}
+        <button type="button" class="thumb" data-thumb data-src="{{ u }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Show photo {{ forloop.counter }}"><img src="{{ u }}" alt="" loading="lazy"></button>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="buybox">
+      {% if product.badge %}<span class="pdp-badge">{{ product.badge }}</span>{% endif %}
+      <h1>{{ product.name }}</h1>
+      <p class="pdp-lead">{{ product.blurb }}</p>
+      <div class="pdp-price">{% price product %}<span class="unit">{{ product.unit }}</span></div>
+      {% if product.price_ngn and product.price_usd %}
+      <p class="pdp-alt">Also priced at <strong class="tabular"><span class="price-alt" data-ngn="{{ product.price_ngn }}" data-usd="{{ product.price_usd }}">{% if currency.code == 'NGN' %}${{ product.price_usd }}{% else %}₦{{ product.price_ngn }}{% endif %}</span></strong> {{ product.unit }}</p>
+      {% endif %}
+
+      {% if product.highlight_list %}
+      <ul class="ticks">
+        {% for h in product.highlight_list %}<li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>{{ h }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+
+      <div class="buy-row" data-buyrow>
+        <div class="qty" data-qty role="group" aria-label="Quantity">
+          <button type="button" data-step="-1" aria-label="Decrease quantity"><svg class="i" aria-hidden="true"><use href="#i-minus"/></svg></button>
+          <input id="qty" type="number" inputmode="numeric" min="1" max="9999" value="1" aria-label="Quantity">
+          <button type="button" data-step="1" aria-label="Increase quantity"><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></button>
+        </div>
+        {% include "components/add_button.html" with p=product qty_input="#qty" %}
+      </div>
+      {% if product.is_bulk %}
+      <a class="btn btn-ghost btn-block" href="{% url 'core:home' %}?product={{ product.slug }}#quote">Need a larger volume? Request a bulk quote</a>
+      {% endif %}
+
+      <div class="assure">
+        <div><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><p><b>Confirmed before you pay</b><span>We email price, stock and delivery for your approval. No payment is taken until you agree.</span></p></div>
+        <div><svg class="i" aria-hidden="true"><use href="#i-coins"/></svg><p><b>Naira or dollars</b><span>Use the ₦ / $ switch at the top of the page. Each currency has its own fixed price.</span></p></div>
+      </div>
+    </div>
+  </article>
+
+  <section class="tabs" data-tabs aria-label="Product information">
+    <div class="tab-list" role="tablist">
+      <button type="button" role="tab" id="tab-1" aria-controls="pane-1" aria-selected="true">Description</button>
+      {% if product.spec_rows %}<button type="button" role="tab" id="tab-2" aria-controls="pane-2" aria-selected="false">Details</button>{% endif %}
+      <button type="button" role="tab" id="tab-3" aria-controls="pane-3" aria-selected="false">Ordering</button>
+    </div>
+    <div class="tab-panel" role="tabpanel" id="pane-1" aria-labelledby="tab-1">
+      {% for para in product.paragraphs %}<p>{{ para }}</p>{% endfor %}
+    </div>
+    {% if product.spec_rows %}
+    <div class="tab-panel" role="tabpanel" id="pane-2" aria-labelledby="tab-2" hidden>
+      <dl class="specs">{% for label, value in product.spec_rows %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}</dl>
+    </div>
+    {% endif %}
+    <div class="tab-panel" role="tabpanel" id="pane-3" aria-labelledby="tab-3" hidden>
+      <p>Add the product to your cart, review it, and send your order request. We reply by email with the final price, availability and delivery details for your approval.</p>
+      <p>Only pay using the details in our written confirmation. We never ask for card numbers or payments into personal accounts.</p>
+    </div>
+  </section>
+
+  {% if related %}
+  <section class="section-tight" aria-labelledby="rel-title" style="padding-bottom:clamp(64px,8vw,112px)">
+    <div class="section-head"><h2 id="rel-title" style="font-size:clamp(1.8rem,3.4vw,2.6rem)">You might also like</h2><a class="link-arrow" href="{% url 'core:products' %}">All products <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+    <div class="grid-products">
+      {% for p in related %}{% include "components/product_card.html" with p=p %}{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+
+<div class="stickybar" data-stickybar>
+  <div class="sb-name">{{ product.name }}{% price product %}</div>
+  {% include "components/add_button.html" with p=product qty_input="#qty" cls="btn-sm" %}
+</div>
+{% endblock %}
+
+{% block overlays %}
+<div class="lightbox" aria-hidden="true" role="dialog" aria-label="Enlarged product photo">
+  <button type="button" class="icon-btn" data-close aria-label="Close photo"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <img src="" alt="{{ product.alt }}">
+</div>
+{% endblock %}

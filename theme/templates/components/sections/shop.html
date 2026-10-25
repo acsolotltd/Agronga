@@ -1,0 +1,20 @@
+{# Section: featured products grid with filter chips. Context: products, categories. #}
+<section class="section" id="shop" aria-labelledby="shop-title">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2 id="shop-title">Shop the range</h2>
+      <p>Raw kernels, ready-to-eat snacks, shea and bulk commodities. Every price follows the currency you choose.</p>
+    </div>
+    <div class="shop-bar reveal" data-filter-group>
+      <div class="chips" role="group" aria-label="Filter products">
+        <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+        {% for c in categories %}<button type="button" class="chip" data-filter="{{ c.slug }}" aria-pressed="false">{{ c.name }}</button>{% endfor %}
+      </div>
+      <p class="count" data-filter-count role="status">{{ products|length }} products</p>
+    </div>
+    <div class="grid-products">
+      {% for p in products %}{% include "components/product_card.html" with p=p %}{% endfor %}
+    </div>
+    <p style="margin-top:32px"><a class="link-arrow" href="{% url 'core:products' %}">See the full catalogue <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></p>
+  </div>
+</section>

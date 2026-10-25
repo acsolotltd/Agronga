@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Your cart | AgroNGA{% endblock %}
+{% block meta_description %}Review your AgroNGA cart and send your order request.{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with title="Your cart" intro="Review your items, choose where to ship, and see your total in naira or dollars before you pay." %}
+<div class="wrap" data-cart-wrap>
+  <div data-order-main>
+    <div class="empty" data-cart-empty style="padding-block:96px">
+      <svg class="i" aria-hidden="true"><use href="#i-cart"/></svg>
+      <h3>Your cart is empty</h3>
+      <p>Add a product and it will show up here.</p>
+      <a class="btn" href="{% url 'core:products' %}">Browse products</a>
+    </div>
+    <div class="cart-layout" data-cart-full hidden>
+      <div>
+        <ul class="cart-lines" data-cart-lines></ul>
+        <p style="margin-top:20px"><a class="link-arrow" href="{% url 'core:products' %}"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg> Keep shopping</a></p>
+      </div>
+      <aside>
+        <form class="summary" method="post" action="{% url 'core:order' %}" data-order-form data-quote-url="{% url 'core:cart_quote' %}" data-paystack="{% if paystack_enabled %}1{% endif %}" novalidate>
+          {% csrf_token %}
+          {% include "components/spam_guard.html" %}
+          <input type="hidden" name="cart" data-cart-json>
+          <input type="hidden" name="expected_total" data-expected-total>
+          <h2>Checkout</h2>
+          {% include "components/field.html" with field=form.country label="Where should we ship to?" %}
+          <div class="totals" data-q-box aria-live="polite">
+            <div class="sum-row"><span>Subtotal</span><span class="val-sm tabular" data-q-subtotal>&hellip;</span></div>
+            <div class="sum-row"><span data-q-ship-label>Shipping</span><span class="val-sm tabular" data-q-shipping>&hellip;</span></div>
+            <div class="sum-row total"><span>Total</span><span class="val tabular" data-q-total>&hellip;</span></div>
+          </div>
+          <p class="fine rate-note" data-q-rate hidden></p>
+          <ul class="fine q-notes" data-q-notes></ul>
+          <p class="form-alert" data-q-error role="alert" hidden>We could not calculate your total. <button type="button" class="linklike" data-q-retry>Try again</button></p>
+          <p class="fine">You pay in <span data-cart-currency>naira (&#8358;)</span>. Change currency with the &#8358; / $ switch at the top. Shipping is calculated from your delivery country and updates as you change it.</p>
+          <div class="form-grid">
+            {% include "components/field.html" with field=form.name label="Full name" %}
+            {% include "components/field.html" with field=form.email label="Email" %}
+            {% include "components/field.html" with field=form.phone label="Phone number" %}
+            {% include "components/field.html" with field=form.address label="Delivery address" %}
+            {% include "components/field.html" with field=form.notes label="Notes" %}
+          </div>
+          {% if paystack_enabled %}
+          <button type="submit" name="pay" value="paystack" class="btn btn-block btn-lg" data-pay-btn disabled><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span>Pay <span data-q-total>&hellip;</span> securely</span></button>
+          <button type="submit" name="pay" value="request" class="btn btn-ghost btn-block" data-request-btn disabled>Request an invoice instead</button>
+          <div class="trust-line"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span>You will pay on Paystack&rsquo;s secure page by card or bank transfer. We never see or store your card details. Paying in dollars? Use a card that supports USD payments.</span></div>
+          {% else %}
+          <button type="submit" name="pay" value="request" class="btn btn-block btn-lg" data-request-btn disabled>Send order request</button>
+          <div class="trust-line"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span>Nothing is charged on this page. We email a confirmation with the final total and payment details. Pay only using the details in that email.</span></div>
+          {% endif %}
+        </form>
+      </aside>
+    </div>
+  </div>
+</div>
+{% endblock %}

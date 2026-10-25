@@ -1,0 +1,52 @@
+{% extends "pages/legal.html" %}
+{# DRAFT: written from what this site actually does today. Have a Nigerian lawyer review before launch,
+   and update it whenever you add analytics, payments, newsletters or new processors. #}
+{% block legal_title %}Privacy policy{% endblock %}
+{% block legal_heading %}Privacy policy{% endblock %}
+
+{% block legal_body %}
+<h2>Who we are</h2>
+<p>AgroNGA Limited ("we", "us") is based at {{ company.address }}. We are responsible for the personal data described in this policy. Contact us through our <a href="{% url 'core:contact' %}">contact page</a> or on <a href="tel:{{ company.phone_href }}">{{ company.phone }}</a>.</p>
+
+<h2>What we collect</h2>
+<p><strong>When you send us a quote request or message,</strong> we collect the details you type: your name, email address, country, the product you are asking about, quantity, and your message.</p>
+<p><strong>When you place an order,</strong> we also collect your phone number, delivery address, notes and the items in your cart. Card and bank payments are processed by Paystack on its own secure page. We do not see or store your card details; we receive only the payment result, the amount and the payment channel used.</p>
+<p><strong>Automatically,</strong> our systems process your IP address to limit repeated form submissions (kept for up to an hour) and to protect the site from abuse. Our hosting provider also keeps standard server logs.</p>
+<p>We do not ask for payment card details on this website.</p>
+
+<h2>Cookies and local storage</h2>
+<ul>
+  <li><strong>agronga_currency</strong> remembers whether you view prices in naira or US dollars. It lasts one year.</li>
+  <li><strong>Security cookie</strong> (CSRF) protects our forms from forgery. It is essential for the forms to work.</li>
+  <li><strong>agronga-cart-v1</strong> keeps the items in your cart in your browser's local storage. It never leaves your device until you send an order request.</li>
+  <li><strong>agronga-theme</strong> is saved in your browser's local storage to remember light or dark mode. It never leaves your device.</li>
+</ul>
+<p>We do not currently use advertising or analytics cookies. If that changes, we will update this page first.</p>
+
+<h2>Why we use your data</h2>
+<ul>
+  <li>To reply to your enquiry and prepare a quote or order. This is needed to take steps at your request before a contract.</li>
+  <li>To keep the website secure and stop spam. This is our legitimate interest.</li>
+  <li>To keep business records we are required by law to keep.</li>
+</ul>
+<p>We do not sell your personal data and we do not use it for marketing unless you ask us to.</p>
+
+<h2>Who receives it</h2>
+<p>Only service providers that help us run the site and email, such as our hosting and email providers. They act on our instructions. Because some providers operate outside Nigeria, your data may be processed in other countries. We take steps to make sure it stays appropriately protected.</p>
+
+<h2>How long we keep it</h2>
+<p>We keep enquiries for as long as needed to answer them and to keep proper business records, then delete them. You can ask us to delete yours sooner.</p>
+
+<h2>Your rights</h2>
+<p>Under the Nigeria Data Protection Act 2023, you can ask us to give you a copy of your data, correct it, delete it, restrict or object to how we use it, and withdraw consent where we rely on it. We apply these rights to every visitor, wherever you live. Contact us to use them.</p>
+<p>If you are unhappy with how we handle your data, you can complain to the Nigeria Data Protection Commission.</p>
+
+<h2>Security</h2>
+<p>The site uses HTTPS, and access to enquiries is limited to people who need it. No system is perfectly secure, so please do not send sensitive information such as card numbers in a message.</p>
+
+<h2>Children</h2>
+<p>This website is for businesses and adults. We do not knowingly collect data from children.</p>
+
+<h2>Changes</h2>
+<p>If we change this policy, we will update the date at the top of this page.</p>
+{% endblock %}

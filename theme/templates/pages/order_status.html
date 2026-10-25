@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Order {{ order.reference }} | AgroNGA{% endblock %}
+{% block extra_head %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with title="Your order" intro="Thank you for shopping with AgroNGA." crumb="Order" %}
+<div class="wrap" style="padding-block:48px 96px">
+  <div class="status-card" {% if order.status == 'paid' or order.status == 'requested' %}data-clear-cart{% endif %}{% if order.status == 'pending' %} data-poll{% endif %}>
+    {% if order.status == 'paid' %}
+      <div class="form-success"><div class="tick"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <h2>Payment received</h2><p>Thank you, {{ order.first_name }}. A receipt is on its way to {{ order.masked_email }}. We will email you about delivery shortly.</p></div>
+    {% elif order.status == 'requested' %}
+      <div class="form-success"><div class="tick"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+        <h2>Order request sent</h2><p>We will email {{ order.masked_email }} with the final price, availability and payment details for you to approve.</p></div>
+    {% elif order.status == 'pending' %}
+      <div class="form-success"><div class="spinner" aria-hidden="true"></div>
+        <h2>We are confirming your payment</h2><p>This usually takes a few seconds. This page refreshes on its own. If you have already paid, you do not need to do anything else.</p></div>
+    {% elif order.status == 'review' %}
+      <div class="form-success"><div class="tick warn"><svg class="i" aria-hidden="true"><use href="#i-clock"/></svg></div>
+        <h2>We are checking your payment</h2><p>Your payment needs a quick manual check. We will email {{ order.masked_email }} within one business day. Quote {{ order.reference }} if you call us.</p></div>
+    {% else %}
+      <div class="form-success"><div class="tick warn"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></div>
+        <h2>The payment did not go through</h2><p>You have not been charged. Your cart is still saved, so you can try again.</p>
+        <p style="margin-top:20px"><a class="btn" href="{% url 'core:cart' %}">Back to cart</a></p></div>
+    {% endif %}
+
+    <div class="summary" style="margin-top:32px">
+      <h3>Order {{ order.reference }}</h3>
+      <ul class="status-lines">
+        {% for i in items %}<li><span>{{ i.quantity }} &times; {{ i.name }}</span><span class="tabular">{{ order.currency }} {{ i.line_total|floatformat:2 }}</span></li>{% endfor %}
+      </ul>
+      <div class="sum-row"><span>Subtotal</span><span class="val-sm tabular">{{ order.currency }} {{ order.subtotal|floatformat:2 }}</span></div>
+      <div class="sum-row"><span>Shipping{% if order.shipping_zone %} ({{ order.shipping_zone }}){% endif %}</span><span class="val-sm tabular">{% if order.shipping_zone %}{{ order.currency }} {{ order.shipping_fee|floatformat:2 }}{% else %}To be confirmed{% endif %}</span></div>
+      <div class="sum-row total"><span>Total</span><span class="val tabular">{{ order.currency }} {{ order.total|floatformat:2 }}</span></div>
+      {% if order.fx_rate %}<p class="fine">Exchange rate used: $1 = &#8358;{{ order.fx_rate|floatformat:2 }}, locked when you placed this order.</p>{% endif %}
+      {% if order.shipping_note %}<p class="fine">{{ order.shipping_note }}</p>{% endif %}
+    </div>
+    <p class="fine" style="margin-top:20px;text-align:center">Questions? Call <a href="tel:{{ company.phone_href }}" style="text-decoration:underline">{{ company.phone }}</a> and quote your reference.</p>
+  </div>
+</div>
+{% endblock %}

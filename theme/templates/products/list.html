@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{% if active_category %}{{ active_category.name }} | {% endif %}Shop | AgroNGA{% endblock %}
+{% block meta_description %}Shop non-GMO cashew nuts, shea butter, sesame seeds, peanuts and shea nuts from Nigerian farms, priced in naira or US dollars.{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with title="Shop" intro="Raw and processed, from Nigerian farms. Switch between naira and dollars and every price follows." %}
+<section class="section-tight" style="padding-top:clamp(32px,4vw,56px);padding-bottom:clamp(56px,7vw,96px)">
+  <div class="wrap">
+    {% include "products/partials/catalog.html" %}
+    <div class="bulk-banner reveal">
+      <div><h2>Buying in volume?</h2><p>Sesame seeds, peanuts and shea nuts are sold by the tonne. Tell us what you need and where it is going, and we reply with a quote.</p></div>
+      <a class="btn btn-gold" href="{% url 'core:contact' %}?topic=quote">Request a bulk quote</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

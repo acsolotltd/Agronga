@@ -1,0 +1,23 @@
+<div id="contact-form-wrap" data-form-target>
+  {% if sent %}
+  <div role="status" class="form-success">
+    <div class="tick"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+    <h3>Message received</h3>
+    <p>Thanks{% if sent_name %}, {{ sent_name }}{% endif %}. We will reply to the email address you entered.</p>
+  </div>
+  {% else %}
+  <form method="post" action="{% url 'core:contact' %}" data-ajax novalidate>
+    {% csrf_token %}
+    {% include "components/spam_guard.html" %}
+    <div class="form-grid two">
+      {% if form.non_field_errors %}<div class="form-alert full" role="alert">{% for e in form.non_field_errors %}{{ e }} {% endfor %}</div>{% endif %}
+      {% include "components/field.html" with field=form.name label="Your name" %}
+      {% include "components/field.html" with field=form.email label="Email" %}
+      <div class="full">{% include "components/field.html" with field=form.topic label="I need" %}</div>
+      <div class="full">{% include "components/field.html" with field=form.message label="Message" %}</div>
+      <div class="full"><button type="submit" class="btn btn-block">Send message</button></div>
+      <p class="fine full">We use your details only to answer this message. See our <a href="{% url 'core:privacy' %}" style="text-decoration:underline">privacy policy</a>.</p>
+    </div>
+  </form>
+  {% endif %}
+</div>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Page not found | AgroNGA{% endblock %}
+{% block content %}
+<div class="wrap notfound">
+  <h1>404</h1>
+  <p style="font-size:1.2rem;margin:12px 0 28px;color:var(--muted)">We could not find that page. It may have moved, or the link may be wrong.</p>
+  <a class="btn" href="{% url 'core:products' %}">Browse products</a>
+</div>
+{% endblock %}

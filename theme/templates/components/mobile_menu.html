@@ -1,0 +1,17 @@
+<div class="mobile-menu" aria-hidden="true" role="dialog" aria-label="Menu">
+  <div class="mm-top">
+    <span class="brand-name">Agro<b style="color:var(--gold)">NGA</b></span>
+    <button type="button" class="icon-btn mm-close" data-close aria-label="Close menu"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <nav aria-label="Mobile">
+    <a href="{% url 'core:home' %}">Home</a>
+    {% for l in nav_links %}<a href="{{ l.href }}">{{ l.label }}</a>{% endfor %}
+  </nav>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    {% include "components/currency_switch.html" with size="seg-lg" %}
+    <button type="button" class="icon-btn mm-close theme-btn" data-theme-toggle aria-label="Switch light or dark mode"><svg class="i i-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="i i-sun" aria-hidden="true"><use href="#i-sun"/></svg></button>
+  </div>
+  <a class="mm-phone" href="tel:{{ company.phone_href }}"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg>{{ company.phone }}</a>
+  {% include "components/socials.html" %}
+  <a href="{% url 'core:contact' %}?topic=quote" class="btn btn-gold btn-block">Request a quote</a>
+</div>

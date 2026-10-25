@@ -1,0 +1,42 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en" data-currency="{{ currency.code }}" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}AgroNGA | Cashew, shea, sesame and peanuts from Nigeria{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Non-GMO raw and processed cashew nuts, shea butter, sesame seeds, peanuts and shea nuts from Nigerian farms. Shop in naira or US dollars.{% endblock %}">
+  <meta name="theme-color" content="#0d2418">
+  <meta property="og:site_name" content="AgroNGA">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{% block og_title %}AgroNGA | Cashew, shea, sesame and peanuts from Nigeria{% endblock %}">
+  <!--link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}"-->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="/static/img/favicon/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/agronga.css' %}">
+  {# Sets the theme before first paint, so dark-mode visitors never see a white flash #}
+  <script>(function(){var d=document.documentElement;d.className+=' js';try{var t=JSON.parse(localStorage.getItem('agronga-theme')||'null');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';d.dataset.theme=t}catch(e){}})()</script>
+  {% block structured_data %}{% endblock %}
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  {% include "components/sprite.html" %}
+  {% include "components/header.html" %}
+  {% include "components/mobile_menu.html" %}
+
+  <main id="main" tabindex="-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "components/footer.html" %}
+  {% include "components/cart_drawer.html" %}
+  {% block overlays %}{% endblock %}
+  <script src="{% static 'js/agronga.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>
