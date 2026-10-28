@@ -1,0 +1,12 @@
+{# Details table shared by the owner and visitor copies of an enquiry. #}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:8px 0 16px;">
+  <tr><td style="padding:10px 0;border-bottom:1px solid #e8efe2;width:34%;color:#4a5c51;font-size:14px;">Name</td><td style="padding:10px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ name }}</td></tr>
+  <tr><td style="padding:10px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">Email</td><td style="padding:10px 0;border-bottom:1px solid #e8efe2;font-weight:600;"><a href="mailto:{{ email }}" style="color:#1b6b3a;">{{ email }}</a></td></tr>
+  {% for label_, value in rows %}<tr><td style="padding:10px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">{{ label_ }}</td><td style="padding:10px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ value }}</td></tr>{% endfor %}
+</table>
+{% if message %}
+<div style="background:#f4f7f0;border-left:4px solid #e0a526;border-radius:8px;padding:14px 18px;margin:8px 0 20px;white-space:normal;">
+  <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4a5c51;font-weight:700;padding-bottom:6px;">Message</div>
+  {{ message|linebreaksbr }}
+</div>
+{% endif %}

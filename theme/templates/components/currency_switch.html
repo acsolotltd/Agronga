@@ -1,0 +1,5 @@
+{# {% include "components/currency_switch.html" with size="seg-lg" %}: switches naira / dollars instantly, remembered in a cookie. #}
+<div class="seg {{ size }}" role="radiogroup" aria-label="Currency" data-active="{{ currency.code }}">
+  <button type="button" role="radio" data-code="NGN" aria-checked="{% if currency.code == 'NGN' %}true{% else %}false{% endif %}" title="Nigerian naira"><span aria-hidden="true">₦</span><span class="sr-only">Naira</span></button>
+  <button type="button" role="radio" data-code="USD" aria-checked="{% if currency.code == 'USD' %}true{% else %}false{% endif %}" title="US dollars"><span aria-hidden="true">$</span><span class="sr-only">US dollars</span></button>
+</div>

@@ -1,0 +1,17 @@
+# Core
+django
+whitenoise
+django-tailwind
+django-htmx
+django-cors-headers
+django-anymail[brevo]
+python-dotenv
+Pillow
+
+# Production server and services
+gunicorn
+psycopg[binary]      # PostgreSQL (set DB_NAME in .env)
+redis                # shared cache for rate limits (set REDIS_URL in .env)
+
+# Not used by the site any more; remove if you do not use them elsewhere:
+#   django-browser-reload (dev only), huey (no task queue is configured)

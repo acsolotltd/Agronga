@@ -1,0 +1,16 @@
+{% extends "emails/base.html" %}
+{% block preheader %}{% if kind == "paid" %}Payment received{% else %}Order request{% endif %}: {{ total }} from {{ order.name }}.{% endblock %}
+{% block body %}
+<h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.2;color:#0d2418;">{% if kind == "paid" %}New paid order{% else %}New order request{% endif %}</h1>
+<p style="margin:0 0 4px;color:#4a5c51;font-size:14px;">Reference <strong style="color:#112017;">{{ order.reference }}</strong> &middot; {{ order.currency }}{% if kind == "paid" %} &middot; paid via {{ order.channel|default:"Paystack" }}{% endif %}</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:16px 0 8px;font-size:15px;">
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;width:34%;color:#4a5c51;font-size:14px;">Customer</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ order.name }}</td></tr>
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">Email</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;"><a href="mailto:{{ order.email }}" style="color:#1b6b3a;">{{ order.email }}</a></td></tr>
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">Phone</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;"><a href="tel:{{ order.phone }}" style="color:#1b6b3a;">{{ order.phone }}</a></td></tr>
+  {% if order.notes %}<tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">Notes</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;">{{ order.notes }}</td></tr>{% endif %}
+</table>
+{% include "emails/_order_table.html" %}
+{% if kind == "requested" %}<p style="margin:0 0 18px;">This is an <strong>invoice request</strong>: nothing has been paid yet. Reply to the customer with the final price and payment details.</p>{% endif %}
+<p style="margin:0 0 24px;"><a href="{{ admin_url }}" style="display:inline-block;background:#1b6b3a;color:#ffffff;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;">Open in admin</a></p>
+{% endblock %}
+{% block footnote %}<p style="margin:0 0 14px;">Update the status in the admin and the customer is emailed automatically.</p>{% endblock %}

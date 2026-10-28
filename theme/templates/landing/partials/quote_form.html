@@ -1,0 +1,25 @@
+<div id="quote-form-wrap" data-form-target>
+  {% if sent %}
+  <div role="status" class="form-success">
+    <div class="tick"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+    <h3>Request received</h3>
+    <p>Thanks{% if sent_name %}, {{ sent_name }}{% endif %}. {% if confirmed %}We have emailed a copy to you. Check your spam folder if it does not arrive. {% endif %}We will reply to the email address you entered.</p>
+  </div>
+  {% else %}
+  <form method="post" action="{% url 'core:quote' %}" data-ajax novalidate>
+    {% csrf_token %}
+    {% include "components/spam_guard.html" %}
+    <div class="form-grid two">
+      {% if form.non_field_errors %}<div class="form-alert full" role="alert">{% for e in form.non_field_errors %}{{ e }} {% endfor %}</div>{% endif %}
+      {% include "components/field.html" with field=form.name label="Your name" %}
+      {% include "components/field.html" with field=form.email label="Email" %}
+      {% include "components/field.html" with field=form.country label="Where are you buying from?" %}
+      {% include "components/field.html" with field=form.product label="Product" %}
+      <div class="full">{% include "components/field.html" with field=form.quantity label="Quantity (for example 500 kg or 2 tonnes)" %}</div>
+      <div class="full">{% include "components/field.html" with field=form.message label="Anything else we should know?" %}</div>
+      <div class="full"><button type="submit" class="btn btn-block">Send request</button></div>
+      <p class="fine full">We use your details only to answer this request.</p>
+    </div>
+  </form>
+  {% endif %}
+</div>

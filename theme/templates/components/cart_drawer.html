@@ -1,0 +1,22 @@
+<div class="scrim" aria-hidden="true"></div>
+<aside class="drawer" aria-hidden="true" role="dialog" aria-label="Your cart" data-cart-wrap>
+  <div class="drawer-head">
+    <h2>Your cart</h2>
+    <button type="button" class="icon-btn" data-close aria-label="Close cart"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="drawer-body">
+    <div class="empty" data-cart-empty>
+      <svg class="i" aria-hidden="true"><use href="#i-cart"/></svg>
+      <h3>Your cart is empty</h3>
+      <p>Add a product and it will show up here.</p>
+      <a class="btn btn-sm" href="{% url 'core:products' %}">Browse products</a>
+    </div>
+    <ul data-cart-lines></ul>
+  </div>
+  <div class="drawer-foot" data-cart-full hidden>
+    <div class="sum-row"><span>Subtotal</span><span class="val" data-cart-total>0</span></div>
+    <p class="fine" data-cart-note hidden>Some items have no price in this currency and are not counted.</p>
+    <p class="fine">Shown in <span data-cart-currency>naira (₦)</span>. Shipping is calculated at checkout from your country.</p>
+    <a class="btn btn-block" href="{% url 'core:cart' %}" data-cart-link>Review and request order</a>
+  </div>
+</aside>

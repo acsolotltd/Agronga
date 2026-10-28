@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | AgroNGA{% endblock %}
+{% block meta_description %}{{ page.intro }}{% endblock %}
+{% block structured_data %}{% if jsonld %}<script type="application/ld+json">{{ jsonld|safe }}</script>{% endif %}{% endblock %}
+
+{% block content %}
+{% include "components/page_header.html" with page=page %}
+<div class="wrap">
+  <section class="faq">
+    {% if page.paragraphs %}<div class="prose" style="margin-bottom:24px">{% for para in page.paragraphs %}<p>{{ para }}</p>{% endfor %}</div>{% endif %}
+    {% if faqs %}
+      {% for f in faqs %}
+      <details>
+        <summary>{{ f.question }}<svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></summary>
+        <div class="ans">{{ f.answer|linebreaks }}</div>
+      </details>
+      {% endfor %}
+    {% else %}
+      <div class="empty"><h3>Answers are on their way</h3><p>In the meantime, send us your question and we will reply by email.</p></div>
+    {% endif %}
+    {% include "components/page_blocks.html" with blocks=page.blocks %}
+    <div class="safe" style="margin-top:40px"><h3>Can't find your answer?</h3><p>Ask us directly and we will reply by email.</p><p style="margin-top:14px"><a class="btn btn-sm" href="{% url 'core:contact' %}">Contact us</a></p></div>
+  </section>
+</div>
+{% endblock %}

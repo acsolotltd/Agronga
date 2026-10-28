@@ -1,0 +1,11 @@
+{# Section: how ordering works (a real sequence, so numbered). Context: steps = [{title, text}] #}
+<section class="section" style="background:var(--surface-2)" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="section-head reveal"><h2 id="how-title">How ordering works</h2><p>Three steps, whether you are buying one pack or a container.</p></div>
+    <div class="steps">
+      {% for s in steps %}
+      <div class="step reveal" style="--d: {{ forloop.counter0 }}00ms"><h3>{{ s.title }}</h3><p>{{ s.text }}</p></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

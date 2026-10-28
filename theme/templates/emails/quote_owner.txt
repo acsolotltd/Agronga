@@ -1,0 +1,12 @@
+{% autoescape off %}NEW QUOTE REQUEST: {{ label }}
+
+Name:  {{ name }}
+Email: {{ email }}
+{% for label_, value in rows %}{{ label_ }}: {{ value }}
+{% endfor %}
+Message:
+{{ message }}
+
+Press Reply to answer {{ first_name }} directly.
+(Sent from the quote form on {{ site_url }}.)
+{% endautoescape %}

@@ -1,0 +1,28 @@
+{% load money %}
+{# Section: Kaju King flavour panels. Context: flavours (products). #}
+<section class="kk section" aria-labelledby="kk-title">
+  <div class="wrap">
+    <div class="kk-intro reveal">
+      <h2 id="kk-title">Kaju King. Nigerian cashew, your way.</h2>
+      <p>Our range of 100g cashew pouches: raw, roasted, salted, honey glazed and chocolate coated. Pick one to see the pack and add it to your cart.</p>
+    </div>
+    <div class="panels reveal">
+      {% for p in flavours %}
+      <div class="panel" data-panel style="--accent: {{ p.accent }}">
+        <img src="{{ p.image_url }}" alt="{{ p.alt }}" loading="lazy" width="1400" height="933">
+        <div class="panel-in">
+          <h3><button type="button" class="panel-name" aria-expanded="false">{{ p.name }}</button></h3>
+          <div class="panel-more"><div>
+            <p>{{ p.blurb }}</p>
+            <div class="panel-buy">
+              <span>{% price p %}</span>
+              {% include "components/add_button.html" with p=p cls="btn-gold btn-sm" %}
+              <a class="btn btn-outline-light btn-sm" href="{{ p.get_absolute_url }}">Details</a>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

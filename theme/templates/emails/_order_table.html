@@ -1,0 +1,22 @@
+{# Order lines + totals + delivery address. Used by the customer and owner order emails. #}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:8px 0 6px;font-size:15px;">
+  <tr>
+    <td style="padding:8px 0;border-bottom:2px solid #112017;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4a5c51;font-weight:700;">Item</td>
+    <td align="center" style="padding:8px 8px;border-bottom:2px solid #112017;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4a5c51;font-weight:700;">Qty</td>
+    <td align="right" style="padding:8px 0;border-bottom:2px solid #112017;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4a5c51;font-weight:700;">Amount</td>
+  </tr>
+  {% for l in lines %}
+  <tr>
+    <td style="padding:12px 0;border-bottom:1px solid #e8efe2;"><strong>{{ l.name }}</strong><br><span style="font-size:13px;color:#4a5c51;">{% if l.sku %}SKU {{ l.sku }} &middot; {% endif %}{{ l.unit_price }} {{ l.unit }}</span></td>
+    <td align="center" style="padding:12px 8px;border-bottom:1px solid #e8efe2;">{{ l.qty }}</td>
+    <td align="right" style="padding:12px 0;border-bottom:1px solid #e8efe2;white-space:nowrap;">{{ l.line_total }}</td>
+  </tr>
+  {% endfor %}
+  <tr><td colspan="2" style="padding:10px 0 4px;color:#4a5c51;">Subtotal</td><td align="right" style="padding:10px 0 4px;">{{ subtotal }}</td></tr>
+  <tr><td colspan="2" style="padding:4px 0;color:#4a5c51;">Shipping{% if shipping_zone %} ({{ shipping_zone }}){% endif %}</td><td align="right" style="padding:4px 0;">{% if has_shipping %}{{ shipping }}{% else %}To be confirmed{% endif %}</td></tr>
+  <tr><td colspan="2" style="padding:12px 0 4px;border-top:2px solid #112017;font-weight:700;font-size:17px;">Total</td><td align="right" style="padding:12px 0 4px;border-top:2px solid #112017;font-weight:700;font-size:17px;white-space:nowrap;">{{ total }}</td></tr>
+</table>
+{% if rate_note %}<p style="margin:0 0 6px;font-size:13px;color:#4a5c51;">{{ rate_note }}</p>{% endif %}
+{% if order.shipping_note %}<p style="margin:0 0 6px;font-size:13px;color:#4a5c51;">{{ order.shipping_note }}</p>{% endif %}
+<p style="margin:18px 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#4a5c51;font-weight:700;">Delivery address</p>
+<p style="margin:0 0 20px;">{{ order.name }}<br>{% for line in address_lines %}{{ line }}<br>{% endfor %}{{ country_name }}</p>

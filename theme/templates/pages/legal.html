@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{% block legal_title %}{% endblock %} | AgroNGA{% endblock %}
+{% block content %}
+<header class="page-head">
+  <div class="wrap">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="{% url 'core:home' %}">Home</a></li><li aria-current="page">{% block legal_crumb %}Legal{% endblock %}</li></ol>
+    <h1>{% block legal_heading %}{% endblock %}</h1>
+    <p>Last updated {{ updated|date:"j F Y" }}</p>
+  </div>
+</header>
+<article class="wrap legal"><div class="prose">{% block legal_body %}{% endblock %}</div></article>
+{% endblock %}

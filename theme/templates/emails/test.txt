@@ -1,0 +1,10 @@
+{% autoescape off %}Email is working.
+
+This is a test message from {{ site_url }}. If you can read it, Brevo is connected and your sender address is accepted.
+
+Sent through: {{ backend }}
+From: {{ sender }}
+Owner inbox: {{ inbox }}
+
+Tip: if this landed in spam, authenticate your domain in Brevo (SPF, DKIM, DMARC).
+{% endautoescape %}

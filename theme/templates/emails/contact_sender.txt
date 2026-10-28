@@ -1,0 +1,16 @@
+{% autoescape off %}Thanks, {{ first_name }}. We have your message.
+
+We usually reply within one working day. Our hours: {{ company.hours }}. Here is a copy of what you sent us:
+
+{% for label_, value in rows %}{{ label_ }}: {{ value }}
+{% endfor %}
+{{ message }}
+
+Need us sooner? Call {{ company.phone }}, or simply reply to this email.
+
+{{ company.name }}
+{{ company.address }}
+{{ site_url }}
+
+You are receiving this because someone used the contact form on {{ site_url }} with this email address. If that was not you, ignore this message.
+{% endautoescape %}

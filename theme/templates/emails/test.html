@@ -1,0 +1,12 @@
+{% extends "emails/base.html" %}
+{% block preheader %}Your AgroNGA email setup works.{% endblock %}
+{% block body %}
+<h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.2;color:#0d2418;">Email is working</h1>
+<p style="margin:0 0 18px;">This is a test message from <strong>{{ site_url }}</strong>. If you can read it, Brevo is connected and your sender address is accepted.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:15px;margin-bottom:20px;">
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;width:34%;color:#4a5c51;font-size:14px;">Sent through</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ backend }}</td></tr>
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">From</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ sender }}</td></tr>
+  <tr><td style="padding:8px 0;border-bottom:1px solid #e8efe2;color:#4a5c51;font-size:14px;">Owner inbox</td><td style="padding:8px 0;border-bottom:1px solid #e8efe2;font-weight:600;">{{ inbox }}</td></tr>
+</table>
+<p style="margin:0 0 8px;">Tip: if this landed in spam, authenticate your domain in Brevo (SPF, DKIM, DMARC).</p>
+{% endblock %}

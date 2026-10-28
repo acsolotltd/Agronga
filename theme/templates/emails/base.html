@@ -1,0 +1,37 @@
+{% comment %}Shared frame for every HTML email: table layout + inline styles so it looks right in Gmail, Outlook and phones.{% endcomment %}<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<title>{{ subject }}</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f7f0;-webkit-text-size-adjust:100%;">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">{% block preheader %}{% endblock %}&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f7f0;">
+<tr><td align="center" style="padding:24px 12px;">
+  <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #d4ddcd;">
+    <tr><td style="background:#0d2418;padding:26px 32px;">
+      <span style="font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:700;letter-spacing:-0.5px;color:#eaf2e6;">Agro<span style="color:#e0a526;">NGA</span></span>
+      <div style="font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#a9bcae;padding-top:4px;">Raw &amp; processed, from Nigeria</div>
+    </td></tr>
+    <tr><td style="padding:32px 32px 8px;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.6;color:#112017;">
+      {% block body %}{% endblock %}
+    </td></tr>
+    <tr><td style="padding:8px 32px 32px;font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#4a5c51;">
+      <div style="border-top:1px solid #d4ddcd;padding-top:20px;">
+        {% block footnote %}{% endblock %}
+        <strong style="color:#112017;">{{ company.name }}</strong><br>
+        {{ company.address }}<br>
+        {% for p in company.phones %}<a href="tel:{{ p.href }}" style="color:#1b6b3a;text-decoration:none;">{{ p.display }}</a>{% if not forloop.last %} &middot; {% endif %}{% endfor %}<br>
+        <a href="{{ site_url }}" style="color:#1b6b3a;">{{ site_url }}</a>
+      </div>
+    </td></tr>
+  </table>
+  <div style="font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;color:#7a8a80;padding:16px 8px;max-width:560px;">
+    We will never ask for your card number or for payment into a personal account. Pay only using the details on our website or in a written confirmation from us.
+  </div>
+</td></tr>
+</table>
+</body>
+</html>

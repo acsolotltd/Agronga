@@ -1,0 +1,13 @@
+{# Section: shown only when real, consented testimonials exist. Context: testimonials #}
+{% if testimonials %}
+<section class="section" aria-labelledby="t-title">
+  <div class="wrap">
+    <div class="section-head reveal"><h2 id="t-title">What buyers say</h2><a class="link-arrow" href="{% url 'core:testimonials' %}">All reviews <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+    <div class="quotes">
+      {% for t in testimonials %}
+      <figure class="quote reveal" style="margin:0"><blockquote>{{ t.quote }}</blockquote><figcaption><cite>{{ t.name }}{% if t.role %}<span>{{ t.role }}</span>{% endif %}</cite></figcaption></figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

@@ -1,0 +1,9 @@
+{% extends "emails/base.html" %}
+{% block preheader %}{{ name }} asked for a quote through the website.{% endblock %}
+{% block body %}
+<h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.2;color:#0d2418;">New quote request</h1>
+<p style="margin:0 0 18px;color:#4a5c51;">{{ label }}. Press <strong>Reply</strong> to answer {{ first_name }} directly.</p>
+{% include "emails/_enquiry.html" %}
+<p style="margin:0 0 24px;"><a href="mailto:{{ email }}?subject=Re:%20{{ label|urlencode }}" style="display:inline-block;background:#1b6b3a;color:#ffffff;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;">Reply to {{ first_name }}</a></p>
+{% endblock %}
+{% block footnote %}<p style="margin:0 0 14px;">Sent from the quote form on {{ site_url }}. The visitor was automatically sent a confirmation copy.</p>{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "emails/base.html" %}
+{% block preheader %}Thanks {{ first_name }}, your message has reached us.{% endblock %}
+{% block body %}
+<h1 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;font-size:26px;line-height:1.2;color:#0d2418;">Thanks, {{ first_name }}. We have your message.</h1>
+<p style="margin:0 0 18px;">We usually reply within one working day. Our hours: {{ company.hours }}. Here is a copy of what you sent us.</p>
+{% include "emails/_enquiry.html" %}
+<p style="margin:0 0 8px;">Need us sooner? Call <a href="tel:{{ company.phone_href }}" style="color:#1b6b3a;font-weight:700;">{{ company.phone }}</a>. You can also simply reply to this email.</p>
+{% endblock %}
+{% block footnote %}<p style="margin:0 0 14px;">You are receiving this because someone used the contact form on {{ site_url }} with this email address. If that was not you, you can ignore this message.</p>{% endblock %}

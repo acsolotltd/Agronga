@@ -1,0 +1,40 @@
+{% load money %}
+{# Section: hero slides. Context: slides = [{product, kicker, title, lead, tint, label}] #}
+<section class="hero" data-hero aria-roledescription="carousel" aria-label="Featured products" style="--tint: {{ slides.0.tint }}">
+  <h1 class="sr-only">AgroNGA: raw and processed cashew, shea, sesame and peanuts from Nigeria</h1>
+  <div class="wrap hero-track">
+    {% for s in slides %}
+    <div class="slide{% if forloop.first %} is-active{% endif %}" data-tint="{{ s.tint }}" role="group" aria-roledescription="slide" aria-label="{{ forloop.counter }} of {{ slides|length }}">
+      <div class="slide-copy">
+        <span class="slide-kicker"><i><svg class="i" aria-hidden="true"><use href="#i-leaf"/></svg></i>{{ s.kicker }}</span>
+        <h2 class="slide-title">{{ s.title }}</h2>
+        <p class="slide-lead">{{ s.lead }}</p>
+        <div class="slide-buy">
+          <div class="slide-price">{% price s.product %}<small>{{ s.product.name }}, {{ s.product.unit }}</small></div>
+          <div class="slide-actions">
+            {% include "components/add_button.html" with p=s.product cls="btn-gold" %}
+            <a class="btn btn-outline-light" href="{{ s.product.get_absolute_url }}">View details</a>
+          </div>
+        </div>
+      </div>
+      <div class="slide-photo">
+        <img src="{{ s.product.image_url }}" alt="{{ s.product.alt }}" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} width="1400" height="1000">
+        <span class="slide-tag">{{ s.product.name }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="hero-nav">
+    <div class="wrap">
+      <div class="hero-dots">
+        {% for s in slides %}
+        <button type="button" class="hero-dot" aria-label="Show slide {{ forloop.counter }}: {{ s.label }}"><span class="bar"></span><span class="lbl">{{ s.label }}</span></button>
+        {% endfor %}
+      </div>
+      <div class="hero-arrows">
+        <button type="button" class="icon-btn" data-prev aria-label="Previous slide"><svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
+        <button type="button" class="icon-btn" data-next aria-label="Next slide"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>

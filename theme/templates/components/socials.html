@@ -1,0 +1,6 @@
+{# Company social links (edit SOCIAL_LINKS in settings.py). #}
+<div class="socials">
+  {% for s in social_links %}
+  <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ s.label }}" title="{{ s.label }}"><svg class="i i-fill" aria-hidden="true"><use href="#i-{{ s.key }}"/></svg></a>
+  {% endfor %}
+</div>

@@ -1,0 +1,34 @@
+{% autoescape off %}{{ copy.heading|upper }}
+Order {{ order.reference }}
+
+Hello {{ first_name }},
+
+{{ copy.lead }}
+{% if order.status == "shipped" %}
+TRACKING: {% if tracking %}{{ tracking }}{% else %}details will follow shortly{% endif %}
+{% endif %}{% if customer_message %}
+A NOTE FROM US:
+{{ customer_message }}
+{% endif %}
+{{ copy.next }}
+
+ITEMS
+{% for l in lines %}- {{ l.qty }} x {{ l.name }} ({{ l.unit_price }} {{ l.unit }}) = {{ l.line_total }}
+{% endfor %}
+Subtotal: {{ subtotal }}
+Shipping: {% if has_shipping %}{{ shipping }}{% else %}to be confirmed{% endif %}
+TOTAL: {{ total }}
+{% if rate_note %}{{ rate_note }}
+{% endif %}
+DELIVERY ADDRESS
+{{ order.name }}
+{% for line in address_lines %}{{ line }}
+{% endfor %}{{ country_name }}
+
+View your order: {{ status_url }}
+
+Questions? Reply to this email or call {{ company.phone }}. Please quote {{ order.reference }}.
+
+{{ company.name }}, {{ company.address }}
+You are receiving this because you placed an order on {{ site_url }}.
+{% endautoescape %}

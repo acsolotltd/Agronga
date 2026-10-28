@@ -1,0 +1,24 @@
+{% autoescape off %}{% if kind == "paid" %}NEW PAID ORDER{% else %}NEW ORDER REQUEST (nothing paid yet){% endif %}
+Reference: {{ order.reference }}   Currency: {{ order.currency }}
+
+Customer: {{ order.name }}
+Email:    {{ order.email }}
+Phone:    {{ order.phone }}
+{% if order.notes %}Notes:    {{ order.notes }}
+{% endif %}
+{% for l in lines %}- {{ l.qty }} x {{ l.name }}{% if l.sku %} [{{ l.sku }}]{% endif %} ({{ l.unit_price }} {{ l.unit }}) = {{ l.line_total }}
+{% endfor %}
+Subtotal: {{ subtotal }}
+Shipping: {% if has_shipping %}{{ shipping }} ({{ shipping_zone }}){% else %}to be confirmed{% endif %}
+TOTAL: {{ total }}
+{% if rate_note %}{{ rate_note }}
+{% endif %}{% if order.shipping_note %}Note: {{ order.shipping_note }}
+{% endif %}
+Deliver to:
+{{ order.name }}
+{% for line in address_lines %}{{ line }}
+{% endfor %}{{ country_name }}
+
+Open in admin: {{ admin_url }}
+Update the status in the admin and the customer is emailed automatically.
+{% endautoescape %}
